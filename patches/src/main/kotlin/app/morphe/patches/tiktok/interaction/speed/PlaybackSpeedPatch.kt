@@ -21,12 +21,12 @@ import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 @Suppress("unused")
 val playbackSpeedPatch = bytecodePatch(
     name = "Playback speed",
-    description = "Enables the playback speed option for all videos and retains the speed configurations in between videos. (Supports TikTok 43.6.2 + 43.8.3.)",
+    description = "Enables the playback speed option for all videos and retains the speed configurations in between videos. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
     dependsOn(sharedExtensionPatch)
 
-    compatibleWith(*AppCompatibilities.tiktok4362And4383())
+    compatibleWith(*AppCompatibilities.tiktok4383())
 
     execute {
         fun resolveSetPlaybackSpeedMethod(): String {
@@ -94,7 +94,7 @@ val playbackSpeedPatch = bytecodePatch(
             """,
         )
 
-        // Kept in Morphe: supported on both 43.6.2 and 43.8.3.
+        // Kept in Morphe: supported on 43.8.3.
     }
 }
 

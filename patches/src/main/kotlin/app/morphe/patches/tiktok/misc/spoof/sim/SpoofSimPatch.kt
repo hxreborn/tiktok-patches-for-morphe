@@ -33,7 +33,7 @@ val simSpoofPatch = bytecodePatch(
         settingsPatch,
     )
 
-    compatibleWith(*AppCompatibilities.tiktok4362And4383())
+    compatibleWith(*AppCompatibilities.tiktok4383())
 
     execute {
         val replacements = mapOf(

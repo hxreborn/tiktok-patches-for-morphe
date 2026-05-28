@@ -3,11 +3,11 @@ group = "app.morphe"
 patches {
     about {
         name = "TikTok Patches for Morphe"
-        description = "A Morphe patch source for patching TikTok."
-        source = "https://github.com/just-a-weird-guy/tiktok-patches-for-morphe"
-        author = "BagirAhmed"
+        description = "A Morphe patch source for TikTok 43.8.3."
+        source = "https://github.com/icysymmetra/tiktok-patches-for-morphe"
+        author = "icysymmetra"
         contact = "na"
-        website = "https://github.com/just-a-weird-guy/tiktok-patches-for-morphe"
+        website = "https://github.com/icysymmetra/tiktok-patches-for-morphe"
         license = "GNU General Public License v3.0, with additional GPL section 7 requirements"
     }
 }
@@ -26,15 +26,6 @@ dependencies {
 }
 
 tasks {
-    register<JavaExec>("checkStringResources") {
-        description = "Checks resource strings for invalid formatting"
-
-        dependsOn(compileKotlin)
-
-        classpath = sourceSets["main"].runtimeClasspath
-        mainClass.set("app.morphe.util.resource.CheckStringResourcesKt")
-    }
-
     register<JavaExec>("generatePatchesList") {
         description = "Build patch with patch list"
 

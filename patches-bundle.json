@@ -1,7 +1,8 @@
-﻿{
-    "created_at":  "",
-    "description":  "Morphe TikTok patches for TikTok 43.8.3 and compatible targets.",
-    "download_url":  "",
-    "signature_download_url":  "",
-    "version":  "0.1.0"
+{
+  "created_at": "2026-05-29T01:16:20",
+  "description": "Morphe patch source for TikTok 43.8.3 (com.ss.android.ugc.trill).",
+  "download_url": "https://github.com/icysymmetra/tiktok-patches-for-morphe/releases/download/v0.1.0/patches-0.1.0.mpp",
+  "signature_download_url": "",
+  "page_url": "https://github.com/icysymmetra/tiktok-patches-for-morphe/releases/tag/v0.1.0",
+  "version": "0.1.0"
 }

@@ -227,65 +227,14 @@ internal object AppCompatibilities {
         targets = listOf(AppTarget("25.9.2.0"), AppTarget("26.1.2.0")),
     )
 
-    /** TikTok JP + global, versions 43.6.2 and 43.8.3 (feed filter). */
-    fun tiktok4362And4383(): Array<Compatibility> = arrayOf(
-        Compatibility(
-            name = "TikTok (JP)",
-            packageName = "com.ss.android.ugc.trill",
-            appIconColor = TIKTOK_COLOR,
-            targets = listOf(AppTarget("43.6.2"), AppTarget("43.8.3")),
-        ),
-        Compatibility(
-            name = "TikTok",
-            packageName = "com.zhiliaoapp.musically",
-            appIconColor = TIKTOK_COLOR,
-            targets = listOf(AppTarget("43.6.2"), AppTarget("43.8.3")),
-        ),
-    )
-
-    /** TikTok JP + global, version 43.8.3 only. */
+    /** Tested target: TikTok package com.ss.android.ugc.trill, version 43.8.3. */
     fun tiktok4383(): Array<Compatibility> = arrayOf(
         Compatibility(
-            name = "TikTok (JP)",
-            packageName = "com.ss.android.ugc.trill",
-            appIconColor = TIKTOK_COLOR,
-            targets = listOf(AppTarget("43.8.3")),
-        ),
-        Compatibility(
             name = "TikTok",
-            packageName = "com.zhiliaoapp.musically",
+            packageName = "com.ss.android.ugc.trill",
             appIconColor = TIKTOK_COLOR,
             targets = listOf(AppTarget("43.8.3")),
         ),
     )
 
-    /** TikTok JP + global, version 43.6.2 only. */
-    fun tiktok4362(): Array<Compatibility> = arrayOf(
-        Compatibility(
-            name = "TikTok (JP)",
-            packageName = "com.ss.android.ugc.trill",
-            appIconColor = TIKTOK_COLOR,
-            targets = listOf(AppTarget("43.6.2")),
-        ),
-        Compatibility(
-            name = "TikTok",
-            packageName = "com.zhiliaoapp.musically",
-            appIconColor = TIKTOK_COLOR,
-            targets = listOf(AppTarget("43.6.2")),
-        ),
-    )
-
-    /** TikTok JP + global, any version. */
-    fun tiktokAny(): Array<Compatibility> = arrayOf(
-        Compatibility(
-            name = "TikTok (JP)",
-            packageName = "com.ss.android.ugc.trill",
-            appIconColor = TIKTOK_COLOR,
-        ),
-        Compatibility(
-            name = "TikTok",
-            packageName = "com.zhiliaoapp.musically",
-            appIconColor = TIKTOK_COLOR,
-        ),
-    )
 }

@@ -21,12 +21,12 @@ private const val EXTENSION_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/set
 @Suppress("unused")
 val settingsPatch = bytecodePatch(
     name = "Settings",
-    description = "Adds Morphe settings to TikTok. Supports TikTok 43.6.2 + 43.8.3.",
+    description = "Adds Morphe settings to TikTok. Supports TikTok 43.8.3.",
     default = true,
 ) {
     dependsOn(sharedExtensionPatch)
 
-    compatibleWith(*AppCompatibilities.tiktok4362And4383())
+    compatibleWith(*AppCompatibilities.tiktok4383())
 
     execute {
         val initializeSettingsMethodDescriptor =
@@ -45,7 +45,7 @@ val settingsPatch = bytecodePatch(
         val settingsButtonClass = SettingsEntryFingerprint.originalClassDef.type.toClassName()
         val settingsButtonInfoClass = SettingsEntryInfoFingerprint.originalClassDef.type.toClassName()
 
-        // This "Settings" entry injection is unstable on some 43.6.2 builds (Compose settings redesign).
+        // If this optional secondary row fingerprint does not match, skip it instead of failing the patch run.
         // If fingerprints don't match, skip instead of failing the whole patch run.
         AddSettingsEntryFingerprint.methodOrNull?.let { addSettingsMethod ->
             val implementation = addSettingsMethod.implementation ?: return@let

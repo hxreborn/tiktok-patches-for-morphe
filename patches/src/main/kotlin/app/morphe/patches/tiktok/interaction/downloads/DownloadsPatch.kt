@@ -27,12 +27,12 @@ private const val EXTENSION_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/dow
 @Suppress("unused")
 val downloadsPatch = bytecodePatch(
     name = "Downloads",
-    description = "Removes download restrictions and changes the default download path. (Supports TikTok 43.6.2 + 43.8.3.)",
+    description = "Removes download restrictions and changes the default download path. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
     dependsOn(sharedExtensionPatch)
 
-    compatibleWith(*AppCompatibilities.tiktok4362And4383())
+    compatibleWith(*AppCompatibilities.tiktok4383())
 
     execute {
         SettingsStatusLoadFingerprint.method.addInstruction(
@@ -112,7 +112,7 @@ val downloadsPatch = bytecodePatch(
                 val pathRegister = getInstruction<OneRegisterInstruction>(fieldIndex).registerA
                 val builderRegister = getInstruction<FiveRegisterInstruction>(fieldIndex + 1).registerC
 
-                // Remove 'field load → append → "/Camera/" → append' block.
+                // Remove 'field load â†’ append â†’ "/Camera/" â†’ append' block.
                 removeInstructions(fieldIndex, 4)
 
                 addInstructions(
