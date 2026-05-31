@@ -32,6 +32,13 @@ public class ExtensionPreferenceCategory extends ConditionalPreferenceCategory {
 
         addPreference(new TogglePreference(
                 context,
+                "Sanitize sharing links",
+                "Remove tracking parameters from shared links.",
+                BaseSettings.SANITIZE_SHARING_LINKS
+        ));
+
+        addPreference(new TogglePreference(
+                context,
                 "Enable debug log",
                 "Only enable when recording logs to report an issue. Leaving it on for too long can make TikTok feel laggy and may lead to crashes.",
                 BaseSettings.DEBUG
