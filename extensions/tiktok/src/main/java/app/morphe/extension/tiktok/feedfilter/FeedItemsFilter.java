@@ -9,6 +9,7 @@ import com.ss.android.ugc.aweme.feed.model.FeedItemList;
 import com.ss.android.ugc.aweme.follow.presenter.FollowFeed;
 import com.ss.android.ugc.aweme.follow.presenter.FollowFeedList;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -86,6 +87,9 @@ public final class FeedItemsFilter {
     ) {
         if (list == null) return;
 
+        List<IFilter> activeFilters = getActiveFilters();
+        if (activeFilters.isEmpty()) return;
+
         int initialSize = list.size();
         int removed = 0;
 
@@ -98,7 +102,7 @@ public final class FeedItemsFilter {
                 continue;
             }
 
-            String reason = getFilterReason(item);
+            String reason = getFilterReason(activeFilters, item);
             logItem(item, reason, verbose);
 
             if (reason != null) {
@@ -115,12 +119,22 @@ public final class FeedItemsFilter {
     }
 
     private static boolean shouldFilter(Aweme item) {
-        return getFilterReason(item) != null;
+        return getFilterReason(getActiveFilters(), item) != null;
     }
 
-    private static String getFilterReason(Aweme item) {
+    private static List<IFilter> getActiveFilters() {
+        List<IFilter> activeFilters = new ArrayList<>(FILTERS.size());
         for (IFilter filter : FILTERS) {
-            if (filter.getEnabled() && filter.getFiltered(item)) {
+            if (filter.getEnabled()) {
+                activeFilters.add(filter);
+            }
+        }
+        return activeFilters;
+    }
+
+    private static String getFilterReason(List<IFilter> activeFilters, Aweme item) {
+        for (IFilter filter : activeFilters) {
+            if (filter.getFiltered(item)) {
                 return filter.getClass().getSimpleName();
             }
         }

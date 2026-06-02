@@ -15,10 +15,10 @@ public class LiveFilter implements IFilter {
 
     @Override
     public boolean getFiltered(Aweme item) {
-        return getIntField(item, "awemeType") == AWEME_TYPE_LIVE
-            || item.getLiveId() > 0
+        return item.getLiveId() > 0
             || item.isLiveReplay()
             || hasText(item.getLiveType())
+            || getIntField(item, "awemeType") == AWEME_TYPE_LIVE
             || hasValidLiveRoom(item);
     }
 

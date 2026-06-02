@@ -17,7 +17,7 @@ public final class LikeCountFilter implements IFilter {
 
     @Override
     public boolean getEnabled() {
-        return true;
+        return minLike != 0L || maxLike != Long.MAX_VALUE;
     }
 
     @Override
