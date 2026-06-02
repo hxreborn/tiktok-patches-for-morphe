@@ -17,7 +17,7 @@ public class ViewCountFilter implements IFilter {
 
     @Override
     public boolean getEnabled() {
-        return true;
+        return minView != 0L || maxView != Long.MAX_VALUE;
     }
 
     @Override
