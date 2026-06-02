@@ -41,7 +41,7 @@ The goal is to keep the existing patch set usable while adding more TikTok-focus
 - `Downloads`: Downloads videos without watermark and adds download-related controls.
 - `Playback speed`: Adds playback speed controls.
 - `Remember clear display`: Keeps the clear-display state across videos.
-- `SIM spoof`: Spoofs SIM-related values used by TikTok region logic.
+- `SIM spoof`: Spoofs SIM-related values used by TikTok region logic, with popular country/operator presets for easier setup. TikTok may still use other region signals such as IP, account history, and language.
 - `Sanitize sharing links`: Cleans TikTok share links before they leave the app.
 - `Show seekbar`: Shows the video seekbar where TikTok would normally hide it.
 

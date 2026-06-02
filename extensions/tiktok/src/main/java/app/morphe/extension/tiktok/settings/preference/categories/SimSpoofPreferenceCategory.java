@@ -11,6 +11,7 @@ import android.preference.PreferenceScreen;
 import app.morphe.extension.tiktok.settings.Settings;
 import app.morphe.extension.tiktok.settings.SettingsStatus;
 import app.morphe.extension.tiktok.settings.preference.InputTextPreference;
+import app.morphe.extension.tiktok.settings.preference.SimPresetPreference;
 import app.morphe.extension.tiktok.settings.preference.TogglePreference;
 
 @SuppressWarnings("deprecation")
@@ -33,21 +34,57 @@ public class SimSpoofPreferenceCategory extends ConditionalPreferenceCategory {
                 "Bypass regional restriction by fake sim card information.",
                 Settings.SIM_SPOOF
         ));
-        addPreference(new InputTextPreference(
+        InputTextPreference countryIsoPreference = new InputTextPreference(
                 context,
-                "Country ISO", "us, uk, jp, ...",
+                "Country ISO", "us, gb, jp, ...",
                 Settings.SIM_SPOOF_ISO
-        ));
-        addPreference(new InputTextPreference(
+        );
+        InputTextPreference mccMncPreference = new InputTextPreference(
                 context,
-                "Operator mcc+mnc", "mcc+mnc",
+                "Operator MCC/MNC", "Example: 310260",
                 Settings.SIMSPOOF_MCCMNC
-        ));
-        addPreference(new InputTextPreference(
+        );
+        InputTextPreference operatorNamePreference = new InputTextPreference(
                 context,
-                "Operator name", "Name of the operator.",
+                "Operator name", "Example: T-Mobile",
                 Settings.SIMSPOOF_OP_NAME
-        ));
+        );
+        SimPresetPreference simPresetPreference = new SimPresetPreference(
+                context,
+                countryIsoPreference,
+                mccMncPreference,
+                operatorNamePreference
+        );
+
+        countryIsoPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            simPresetPreference.refreshSummary(
+                    newValue.toString(),
+                    mccMncPreference.getText(),
+                    operatorNamePreference.getText()
+            );
+            return true;
+        });
+        mccMncPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            simPresetPreference.refreshSummary(
+                    countryIsoPreference.getText(),
+                    newValue.toString(),
+                    operatorNamePreference.getText()
+            );
+            return true;
+        });
+        operatorNamePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            simPresetPreference.refreshSummary(
+                    countryIsoPreference.getText(),
+                    mccMncPreference.getText(),
+                    newValue.toString()
+            );
+            return true;
+        });
+
+        addPreference(simPresetPreference);
+        addPreference(countryIsoPreference);
+        addPreference(mccMncPreference);
+        addPreference(operatorNamePreference);
     }
 }
 

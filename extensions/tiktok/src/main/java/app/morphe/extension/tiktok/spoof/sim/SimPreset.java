@@ -1,0 +1,43 @@
+package app.morphe.extension.tiktok.spoof.sim;
+
+import java.util.Locale;
+
+public class SimPreset {
+    public final String country;
+    public final String iso;
+    public final String mccMnc;
+    public final String operatorName;
+
+    private final String searchableText;
+
+    public SimPreset(String country, String iso, String mccMnc, String operatorName) {
+        this.country = country;
+        this.iso = iso;
+        this.mccMnc = mccMnc;
+        this.operatorName = operatorName;
+        this.searchableText = (country + " " + iso + " " + mccMnc + " " + operatorName)
+                .toLowerCase(Locale.US);
+    }
+
+    public String getSummary() {
+        return operatorName + " - " + mccMnc + " - " + iso;
+    }
+
+    public boolean matches(String query) {
+        return query == null || query.isEmpty()
+                || searchableText.contains(query.toLowerCase(Locale.US).trim());
+    }
+
+    public boolean hasSameValues(String currentIso, String currentMccMnc, String currentOperatorName) {
+        return iso.equalsIgnoreCase(currentIso.trim())
+                && mccMnc.equals(currentMccMnc.trim())
+                && operatorName.equalsIgnoreCase(currentOperatorName.trim());
+    }
+
+    public boolean isValid() {
+        return !country.trim().isEmpty()
+                && iso.matches("[a-z]{2}")
+                && mccMnc.matches("\\d{5,6}")
+                && !operatorName.trim().isEmpty();
+    }
+}
