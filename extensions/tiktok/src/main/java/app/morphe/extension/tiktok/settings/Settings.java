@@ -11,7 +11,9 @@ import static java.lang.Boolean.TRUE;
 import app.morphe.extension.shared.settings.BaseSettings;
 import app.morphe.extension.shared.settings.BooleanSetting;
 import app.morphe.extension.shared.settings.FloatSetting;
+import app.morphe.extension.shared.settings.Setting;
 import app.morphe.extension.shared.settings.StringSetting;
+import app.morphe.extension.tiktok.navigation.NavigationTabOptions;
 
 public class Settings extends BaseSettings {
     public static final BooleanSetting REMOVE_ADS = new BooleanSetting("remove_ads", TRUE, true);
@@ -21,6 +23,26 @@ public class Settings extends BaseSettings {
     public static final BooleanSetting HIDE_IMAGE = new BooleanSetting("hide_image", FALSE, true);
     public static final StringSetting MIN_MAX_VIEWS = new StringSetting("min_max_views", "0-" + Long.MAX_VALUE, true);
     public static final StringSetting MIN_MAX_LIKES = new StringSetting("min_max_likes", "0-" + Long.MAX_VALUE, true);
+    public static final BooleanSetting FEED_NAVIGATION = new BooleanSetting("feed_navigation", FALSE, true);
+    public static final StringSetting FEED_NAVIGATION_TABS = new StringSetting(
+            "feed_navigation_tabs",
+            NavigationTabOptions.defaultEnabledKeys(),
+            true,
+            Setting.parent(FEED_NAVIGATION)
+    );
+    public static final BooleanSetting FEED_NAVIGATION_BLOCK_NEW_TABS = new BooleanSetting(
+            "feed_navigation_block_new_tabs",
+            FALSE,
+            true,
+            Setting.parent(FEED_NAVIGATION)
+    );
+    public static final StringSetting FEED_NAVIGATION_OBSERVED_TABS = new StringSetting(
+            "feed_navigation_observed_tabs",
+            NavigationTabOptions.HOT,
+            false,
+            false
+    );
+    public static final BooleanSetting COMMENT_BATCH_TRANSLATION = new BooleanSetting("comment_batch_translation", FALSE);
     public static final StringSetting DOWNLOAD_PATH = new StringSetting("down_path", "DCIM/TikTok");
     public static final BooleanSetting DOWNLOAD_WATERMARK = new BooleanSetting("down_watermark", TRUE);
     public static final BooleanSetting CLEAR_DISPLAY = new BooleanSetting("clear_display", FALSE);

@@ -7,11 +7,21 @@ package app.morphe.extension.tiktok.settings;
 
 public class SettingsStatus {
     public static boolean feedFilterEnabled = false;
+    public static boolean feedNavigationEnabled = false;
+    public static boolean commentTranslationEnabled = false;
     public static boolean downloadEnabled = false;
     public static boolean simSpoofEnabled = false;
 
     public static void enableFeedFilter() {
         feedFilterEnabled = true;
+    }
+
+    public static void enableFeedNavigation() {
+        feedNavigationEnabled = true;
+    }
+
+    public static void enableCommentTranslation() {
+        commentTranslationEnabled = true;
     }
 
     public static void enableDownload() {

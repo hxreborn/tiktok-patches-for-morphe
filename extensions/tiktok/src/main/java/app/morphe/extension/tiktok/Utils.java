@@ -5,15 +5,10 @@
 
 package app.morphe.extension.tiktok;
 
-import static app.morphe.extension.shared.Utils.isDarkModeEnabled;
-
-import android.graphics.Color;
 import android.view.View;
-import android.widget.TextView;
-
-import androidx.annotation.ColorInt;
 
 import app.morphe.extension.shared.settings.StringSetting;
+import app.morphe.extension.tiktok.settings.preference.SettingsUi;
 
 public class Utils {
 
@@ -36,30 +31,8 @@ public class Utils {
         return DEFAULT_MIN_MAX_VALUES;
     }
 
-    private static final @ColorInt int TEXT_DARK_MODE_TITLE = Color.WHITE;
-    private static final @ColorInt int TEXT_DARK_MODE_SUMMARY =
-            Color.argb(255, 170, 170, 170);
-
-    private static final @ColorInt int TEXT_LIGHT_MODE_TITLE = Color.BLACK;
-    private static final @ColorInt int TEXT_LIGHT_MODE_SUMMARY =
-            Color.argb(255, 80, 80, 80);
-
     public static void setTitleAndSummaryColor(View view) {
-        final boolean darkModeEnabled = isDarkModeEnabled();
-
-        TextView title = view.findViewById(android.R.id.title);
-        if (title != null) {
-            title.setTextColor(darkModeEnabled
-                    ? TEXT_DARK_MODE_TITLE
-                    : TEXT_LIGHT_MODE_TITLE);
-        }
-
-        TextView summary = view.findViewById(android.R.id.summary);
-        if (summary != null) {
-            summary.setTextColor(darkModeEnabled
-                    ? TEXT_DARK_MODE_SUMMARY
-                    : TEXT_LIGHT_MODE_SUMMARY);
-        }
+        SettingsUi.styleTitleAndSummary(view);
     }
 }
 

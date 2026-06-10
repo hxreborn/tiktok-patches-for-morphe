@@ -31,17 +31,6 @@ import app.morphe.extension.tiktok.spoof.sim.SimPresets;
 
 @SuppressWarnings("deprecation")
 public class SimPresetPreference extends Preference {
-    private static final int DIALOG_DARK_MODE_BACKGROUND = Color.argb(255, 18, 18, 18);
-    private static final int DIALOG_DARK_MODE_DIVIDER = Color.argb(255, 48, 48, 48);
-    private static final int DIALOG_DARK_MODE_BORDER = Color.argb(255, 58, 58, 58);
-    private static final int DIALOG_LIGHT_MODE_BACKGROUND = Color.WHITE;
-    private static final int DIALOG_LIGHT_MODE_DIVIDER = Color.argb(255, 224, 224, 224);
-    private static final int DIALOG_LIGHT_MODE_BORDER = Color.argb(255, 210, 210, 210);
-    private static final int TEXT_DARK_MODE_TITLE = Color.WHITE;
-    private static final int TEXT_DARK_MODE_SUMMARY = Color.argb(255, 170, 170, 170);
-    private static final int TEXT_LIGHT_MODE_TITLE = Color.BLACK;
-    private static final int TEXT_LIGHT_MODE_SUMMARY = Color.argb(255, 80, 80, 80);
-
     private final List<SimPreset> visiblePresets = new ArrayList<>();
     private final InputTextPreference countryIsoPreference;
     private final InputTextPreference mccMncPreference;
@@ -93,11 +82,10 @@ public class SimPresetPreference extends Preference {
 
     private void showPresetDialog() {
         Context context = getContext();
-        boolean darkMode = isDarkMode();
         LinearLayout dialogView = new LinearLayout(context);
         dialogView.setOrientation(LinearLayout.VERTICAL);
         dialogView.setBackground(createDialogBackground());
-        int padding = dpToPx(18);
+        int padding = dpToPx(22);
         dialogView.setPadding(padding, padding, padding, padding);
 
         TextView title = new TextView(context);
@@ -125,6 +113,7 @@ public class SimPresetPreference extends Preference {
         search.setHint("Search country, operator, ISO, or MCC/MNC");
         search.setTextColor(getTitleTextColor());
         search.setHintTextColor(getSummaryTextColor());
+        SettingsUi.styleEditText(search);
         dialogView.addView(search, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -137,6 +126,7 @@ public class SimPresetPreference extends Preference {
         listView.setClipToPadding(false);
         listView.setDivider(new ColorDrawable(getDialogDividerColor()));
         listView.setDividerHeight(Math.max(1, dpToPx(1)));
+        listView.setFooterDividersEnabled(true);
         PresetAdapter adapter = new PresetAdapter(context, visiblePresets);
         listView.setAdapter(adapter);
 
@@ -146,9 +136,9 @@ public class SimPresetPreference extends Preference {
         listContainer.setPadding(containerInset, containerInset, containerInset, containerInset);
         LinearLayout.LayoutParams listParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                dpToPx(360)
+                dpToPx(420)
         );
-        listParams.setMargins(0, dpToPx(10), 0, dpToPx(12));
+        listParams.setMargins(0, dpToPx(12), 0, dpToPx(14));
         listContainer.addView(listView, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -159,11 +149,8 @@ public class SimPresetPreference extends Preference {
         actions.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
         TextView cancelButton = new TextView(context);
         cancelButton.setText(android.R.string.cancel);
-        cancelButton.setTextColor(darkMode
-                ? Color.argb(255, 255, 64, 129)
-                : Color.argb(255, 233, 30, 99));
         cancelButton.setTextSize(16);
-        cancelButton.setTypeface(cancelButton.getTypeface(), android.graphics.Typeface.BOLD);
+        SettingsUi.styleTextAction(cancelButton, false);
         int buttonHorizontalPadding = dpToPx(12);
         cancelButton.setPadding(buttonHorizontalPadding, dpToPx(8), buttonHorizontalPadding, dpToPx(6));
         actions.addView(cancelButton, new LinearLayout.LayoutParams(
@@ -204,9 +191,7 @@ public class SimPresetPreference extends Preference {
 
         filterPresets("", adapter);
         dialog.show();
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
+        SettingsUi.styleDialog(dialog);
     }
 
     private boolean savePreset(SimPreset preset) {
@@ -255,53 +240,27 @@ public class SimPresetPreference extends Preference {
     }
 
     private GradientDrawable createDialogBackground() {
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setColor(getDialogBackgroundColor());
-        drawable.setStroke(Math.max(1, dpToPx(1)), getDialogBorderColor());
-        drawable.setCornerRadius(dpToPx(2));
-        return drawable;
+        return SettingsUi.borderedSurface(getContext(), 6, true);
     }
 
     private GradientDrawable createListBackground() {
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setColor(getDialogBackgroundColor());
-        drawable.setStroke(Math.max(1, dpToPx(1)), getDialogBorderColor());
-        drawable.setCornerRadius(dpToPx(2));
-        return drawable;
-    }
-
-    private static boolean isDarkMode() {
-        return app.morphe.extension.shared.Utils.isDarkModeEnabled();
+        return SettingsUi.borderedSurface(getContext(), 4, false);
     }
 
     private static int getDialogBackgroundColor() {
-        return isDarkMode()
-                ? DIALOG_DARK_MODE_BACKGROUND
-                : DIALOG_LIGHT_MODE_BACKGROUND;
+        return SettingsUi.surface();
     }
 
     private static int getDialogDividerColor() {
-        return isDarkMode()
-                ? DIALOG_DARK_MODE_DIVIDER
-                : DIALOG_LIGHT_MODE_DIVIDER;
-    }
-
-    private static int getDialogBorderColor() {
-        return isDarkMode()
-                ? DIALOG_DARK_MODE_BORDER
-                : DIALOG_LIGHT_MODE_BORDER;
+        return SettingsUi.divider();
     }
 
     private static int getTitleTextColor() {
-        return isDarkMode()
-                ? TEXT_DARK_MODE_TITLE
-                : TEXT_LIGHT_MODE_TITLE;
+        return SettingsUi.textPrimary();
     }
 
     private static int getSummaryTextColor() {
-        return isDarkMode()
-                ? TEXT_DARK_MODE_SUMMARY
-                : TEXT_LIGHT_MODE_SUMMARY;
+        return SettingsUi.textSecondary();
     }
 
     private static class PresetAdapter extends ArrayAdapter<SimPreset> {

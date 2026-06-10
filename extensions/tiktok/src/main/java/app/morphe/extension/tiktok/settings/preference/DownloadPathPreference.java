@@ -8,6 +8,8 @@ package app.morphe.extension.tiktok.settings.preference;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.Environment;
 import android.preference.DialogPreference;
 import android.text.Editable;
@@ -15,22 +17,20 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import app.morphe.extension.shared.settings.StringSetting;
 import app.morphe.extension.tiktok.Utils;
 
 @SuppressWarnings("deprecation")
 public class DownloadPathPreference extends DialogPreference {
-    private final String[] entryValues = {"DCIM", "Movies", "Pictures"};
     private String mValue;
 
     private boolean mValueSet;
-    private int mediaPathIndex;
-    private String childDownloadPath;
+    private String downloadPathValue;
 
     public DownloadPathPreference(Context context, String title, StringSetting setting) {
         super(context);
@@ -57,30 +57,50 @@ public class DownloadPathPreference extends DialogPreference {
         }
     }
 
+    public void applyPickedPath(String path) {
+        String newValue = normalizePath(path);
+        setSummary(Environment.getExternalStorageDirectory().getPath() + "/" + newValue);
+        setValue(newValue);
+        app.morphe.extension.shared.Utils.showToastShort("Download path updated");
+    }
+
     @Override
     protected View onCreateDialogView() {
-        String currentMedia = getValue().split("/")[0];
-        childDownloadPath = getValue().substring(getValue().indexOf("/") + 1);
-        mediaPathIndex = findIndexOf(currentMedia);
+        downloadPathValue = normalizePath(getValue());
 
         Context context = getContext();
         LinearLayout dialogView = new LinearLayout(context);
-        RadioGroup mediaPath = new RadioGroup(context);
-        mediaPath.setLayoutParams(new RadioGroup.LayoutParams(-1, -2));
-        for (String entryValue : entryValues) {
-            RadioButton radioButton = new RadioButton(context);
-            radioButton.setText(entryValue);
-            radioButton.setId(View.generateViewId());
-            mediaPath.addView(radioButton);
-        }
-        mediaPath.setOnCheckedChangeListener((radioGroup, id) -> {
-            RadioButton radioButton = radioGroup.findViewById(id);
-            mediaPathIndex = findIndexOf(radioButton.getText().toString());
-        });
-        mediaPath.check(mediaPath.getChildAt(mediaPathIndex).getId());
+        dialogView.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
+        dialogView.setOrientation(LinearLayout.VERTICAL);
+        int padding = SettingsUi.dp(context, 22);
+        dialogView.setPadding(padding, padding, padding, SettingsUi.dp(context, 8));
+
+        TextView title = SettingsUi.text(context, "Download path", 20, SettingsUi.textPrimary(), Typeface.BOLD);
+        dialogView.addView(title, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+
+        TextView helper = SettingsUi.text(
+                context,
+                "Enter a folder path relative to internal storage.",
+                14,
+                SettingsUi.textSecondary(),
+                Typeface.NORMAL
+        );
+        LinearLayout.LayoutParams helperParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        helperParams.setMargins(0, SettingsUi.dp(context, 14), 0, SettingsUi.dp(context, 10));
+        dialogView.addView(helper, helperParams);
+
         EditText downloadPath = new EditText(context);
         downloadPath.setInputType(InputType.TYPE_CLASS_TEXT);
-        downloadPath.setText(childDownloadPath);
+        downloadPath.setSingleLine(true);
+        downloadPath.setHint("DCIM/TikTok");
+        downloadPath.setText(downloadPathValue);
+        SettingsUi.styleEditText(downloadPath);
         downloadPath.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -92,13 +112,15 @@ public class DownloadPathPreference extends DialogPreference {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                childDownloadPath = editable.toString();
+                downloadPathValue = editable.toString();
             }
         });
-        dialogView.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
-        dialogView.setOrientation(LinearLayout.VERTICAL);
-        dialogView.addView(mediaPath);
-        dialogView.addView(downloadPath);
+        LinearLayout.LayoutParams pathParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        pathParams.setMargins(0, SettingsUi.dp(context, 10), 0, 0);
+        dialogView.addView(downloadPath, pathParams);
         return dialogView;
     }
 
@@ -111,25 +133,50 @@ public class DownloadPathPreference extends DialogPreference {
 
     @Override
     protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
-        builder.setTitle("Download Path");
-        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> this.onClick(dialog, DialogInterface.BUTTON_POSITIVE));
+        builder.setPositiveButton("Save", (dialog, which) -> this.onClick(dialog, DialogInterface.BUTTON_POSITIVE));
         builder.setNegativeButton(android.R.string.cancel, null);
+        builder.setNeutralButton("Browse", null);
     }
 
     @Override
     protected void onDialogClosed(boolean positiveResult) {
-        if (positiveResult && mediaPathIndex >= 0) {
-            String newValue = entryValues[mediaPathIndex] + "/" + childDownloadPath;
+        if (positiveResult) {
+            String newValue = normalizePath(downloadPathValue);
             setSummary(Environment.getExternalStorageDirectory().getPath() + "/" + newValue);
             setValue(newValue);
         }
     }
 
-    private int findIndexOf(String str) {
-        for (int i = 0, length = entryValues.length; i < length; i++) {
-            if (str.equals(entryValues[i])) return i;
+    @Override
+    protected void showDialog(Bundle state) {
+        super.showDialog(state);
+        SettingsUi.styleFramedDialog(getDialog());
+        AlertDialog dialog = (AlertDialog) getDialog();
+        TextView browseButton = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+        if (browseButton != null) {
+            browseButton.setOnClickListener(view -> {
+                TikTokPreferenceFragment.openDownloadPathFolderPicker(this);
+                dialog.dismiss();
+            });
         }
-        return -1;
+    }
+
+    private static String normalizePath(String path) {
+        if (path == null) {
+            return "DCIM/TikTok";
+        }
+
+        String normalized = path.trim().replace('\\', '/');
+        while (normalized.startsWith("/")) {
+            normalized = normalized.substring(1);
+        }
+        while (normalized.contains("//")) {
+            normalized = normalized.replace("//", "/");
+        }
+        if (normalized.length() == 0) {
+            return "DCIM/TikTok";
+        }
+        return normalized;
     }
 }
 
