@@ -1,9 +1,9 @@
 package app.morphe.extension.shared.settings.preference;
 
-import static app.morphe.extension.shared.StringRef.str;
-
 import java.util.Deque;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,17 +18,24 @@ import app.morphe.extension.shared.settings.BaseSettings;
  * All methods are thread-safe.
  */
 public final class LogBufferManager {
-    /** Maximum byte size of all buffer entries. Must be less than Android's 1 MB Binder transaction limit. */
-    private static final int BUFFER_MAX_BYTES = 900_000;
+    /** Maximum character size of all buffer entries. Keep well under Android's 1 MB Binder clipboard limit. */
+    private static final int BUFFER_MAX_CHARS = 250_000;
     /** Limit number of log lines. */
     private static final int BUFFER_MAX_SIZE = 10_000;
 
+    private static final String DEBUG_LOGS_DISABLED = "Debug logs are disabled.";
+    private static final String DEBUG_LOGS_NONE_FOUND = "No Morphe debug logs found.";
+    private static final String DEBUG_LOGS_NONE_MATCHING = "No matching Morphe debug logs found.";
+    private static final String DEBUG_LOGS_COPIED_TO_CLIPBOARD = "Morphe debug logs copied to clipboard.";
+    private static final String DEBUG_LOGS_CLEAR_TOAST = "Morphe debug logs cleared.";
+    private static final String DEBUG_LOGS_FAILED_TO_EXPORT = "Failed to export Morphe debug logs: %s";
+
     private static final Deque<String> logBuffer = new ConcurrentLinkedDeque<>();
-    private static final AtomicInteger logBufferByteSize = new AtomicInteger();
+    private static final AtomicInteger logBufferCharSize = new AtomicInteger();
 
     /**
      * Appends a log message to the internal buffer if debugging is enabled.
-     * The buffer is limited to approximately {@link #BUFFER_MAX_BYTES} or {@link #BUFFER_MAX_SIZE}
+     * The buffer is limited to approximately {@link #BUFFER_MAX_CHARS} or {@link #BUFFER_MAX_SIZE}
      * to prevent excessive memory usage.
      *
      * @param message The log message to append.
@@ -40,17 +47,17 @@ public final class LogBufferManager {
         // as this code is used when a context is not set and thus referencing
         // a setting will crash the app.
         logBuffer.addLast(message);
-        int newSize = logBufferByteSize.addAndGet(message.length());
+        int newSize = logBufferCharSize.addAndGet(message.length());
 
         // Remove the oldest entries if over the log size limits.
-        while (newSize > BUFFER_MAX_BYTES || logBuffer.size() > BUFFER_MAX_SIZE) {
+        while (newSize > BUFFER_MAX_CHARS || logBuffer.size() > BUFFER_MAX_SIZE) {
             String removed = logBuffer.pollFirst();
             if (removed == null) {
                 // Thread race of two different calls to this method, and the other thread won.
                 return;
             }
 
-            newSize = logBufferByteSize.addAndGet(-removed.length());
+            newSize = logBufferCharSize.addAndGet(-removed.length());
         }
     }
 
@@ -61,25 +68,29 @@ public final class LogBufferManager {
     public static void exportToClipboard() {
         try {
             if (!BaseSettings.DEBUG.get()) {
-                Utils.showToastShort(str("morphe_debug_logs_disabled"));
+                Utils.showToastShort(DEBUG_LOGS_DISABLED);
                 return;
             }
 
             if (logBuffer.isEmpty()) {
-                Utils.showToastShort(str("morphe_debug_logs_none_found"));
+                Utils.showToastShort(DEBUG_LOGS_NONE_FOUND);
                 clearLogBufferData(); // Clear toast log entry that was just created.
                 return;
             }
 
-            // Most (but not all) Android 13+ devices always show a "copied to clipboard" toast
-            // and there is no way to programmatically detect if a toast will show or not.
-            // Show a toast even if using Android 13+, but show Morphe toast first (before copying to clipboard).
-            Utils.showToastShort(str("morphe_debug_logs_copied_to_clipboard"));
+            String exportText = buildExportText();
+            if (exportText.isEmpty()) {
+                Utils.showToastShort(DEBUG_LOGS_NONE_MATCHING);
+                return;
+            }
 
-            Utils.setClipboard(String.join("\n", logBuffer));
+            Utils.setClipboard(exportText);
+
+            // Most Android 13+ devices also show their own clipboard toast, but not all of them do.
+            Utils.showToastShort(DEBUG_LOGS_COPIED_TO_CLIPBOARD);
         } catch (Exception ex) {
             // Handle security exception if clipboard access is denied.
-            String errorMessage = String.format(str("morphe_debug_logs_failed_to_export"), ex.getMessage());
+            String errorMessage = String.format(DEBUG_LOGS_FAILED_TO_EXPORT, ex.getMessage());
             Utils.showToastLong(errorMessage);
             Logger.printDebug(() -> errorMessage, ex);
         }
@@ -92,9 +103,61 @@ public final class LogBufferManager {
         while (!logBuffer.isEmpty()) {
             String removed = logBuffer.pollFirst();
             if (removed != null) {
-                logBufferByteSize.addAndGet(-removed.length());
+                logBufferCharSize.addAndGet(-removed.length());
             }
         }
+    }
+
+    private static String buildExportText() {
+        Set<String> selected = LogExportFilterPreference.parse(BaseSettings.DEBUG_LOG_FILTERS.get());
+        boolean includeAll = selected.isEmpty() || selected.contains("all");
+
+        StringBuilder builder = new StringBuilder();
+        for (String entry : logBuffer) {
+            if (!includeAll && !matchesSelectedFilter(entry, selected)) continue;
+
+            if (builder.length() > 0) builder.append('\n');
+            builder.append(entry);
+        }
+
+        return builder.toString();
+    }
+
+    private static boolean matchesSelectedFilter(String entry, Set<String> selected) {
+        String normalized = entry.toLowerCase(Locale.US);
+        if (selected.contains("errors") && isErrorLog(normalized)) return true;
+
+        return selected.contains(logFamily(normalized));
+    }
+
+    private static String logFamily(String normalized) {
+        if (normalized.contains("followprobe") || normalized.contains("followdiagnostics")) {
+            return "follow";
+        }
+        if (normalized.contains("morphe downloads") || normalized.contains("downloadspatch")) {
+            return "downloads";
+        }
+        if (normalized.contains("feed")
+                || normalized.contains("navigation")
+                || normalized.contains("tako")
+                || normalized.contains("tab")) {
+            return "feed";
+        }
+        if (normalized.contains("setting") || normalized.contains("preference")) {
+            return "settings";
+        }
+        if (isErrorLog(normalized)) {
+            return "errors";
+        }
+        return "other";
+    }
+
+    private static boolean isErrorLog(String normalized) {
+        return normalized.contains("error")
+                || normalized.contains("failed")
+                || normalized.contains("failure")
+                || normalized.contains("exception")
+                || normalized.contains("crash");
     }
 
     /**
@@ -102,12 +165,12 @@ public final class LogBufferManager {
      */
     public static void clearLogBuffer() {
         if (!BaseSettings.DEBUG.get()) {
-            Utils.showToastShort(str("morphe_debug_logs_disabled"));
+            Utils.showToastShort(DEBUG_LOGS_DISABLED);
             return;
         }
 
         // Show toast before clearing, otherwise toast log will still remain.
-        Utils.showToastShort(str("morphe_debug_logs_clear_toast"));
+        Utils.showToastShort(DEBUG_LOGS_CLEAR_TOAST);
         clearLogBufferData();
     }
 }

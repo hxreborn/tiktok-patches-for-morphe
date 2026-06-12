@@ -27,5 +27,11 @@ public class CommentsPreferenceCategory extends ConditionalPreferenceCategory {
                 "Automatically translates loaded comment batches using TikTok's translation system.",
                 Settings.COMMENT_BATCH_TRANSLATION
         ));
+        addPreference(new TogglePreference(
+                context,
+                "Copy comments without username",
+                "Copy only the comment text when using TikTok's copy comment action.",
+                Settings.COPY_COMMENTS_WITHOUT_USERNAME
+        ));
     }
 }

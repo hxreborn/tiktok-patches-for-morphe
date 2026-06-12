@@ -55,5 +55,11 @@ public class FeedNavigationPreferenceCategory extends ConditionalPreferenceCateg
                 "Hide bottom tabs TikTok adds later unless you allow them.",
                 Settings.BOTTOM_NAVIGATION_BLOCK_NEW_TABS
         ));
+        addPreference(new TogglePreference(
+                context,
+                "Hide Tako AI",
+                "Hide the Tako AI feed bubble above the profile button.",
+                Settings.HIDE_TAKO_AI
+        ));
     }
 }

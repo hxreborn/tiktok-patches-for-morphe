@@ -15,6 +15,7 @@ import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/feedfilter/FeedItemsFilter;"
+private const val TAKO_AI_FILTER_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/feedfilter/TakoAiFilter;"
 
 @Suppress("unused")
 val feedFilterPatch = bytecodePatch(
@@ -75,6 +76,22 @@ val feedFilterPatch = bytecodePatch(
                 )
             }
         }
+
+        TakoAiFeedButtonSetVisibleFingerprint.method.addInstructions(
+            0,
+            """
+                invoke-static {}, $TAKO_AI_FILTER_CLASS_DESCRIPTOR->shouldHideFeedButton()Z
+                move-result v0
+                if-eqz v0, :morphe_keep_feed_tako_visible_state
+                const/4 p1, 0x0
+                :morphe_keep_feed_tako_visible_state
+                nop
+            """,
+        )
+
+        TakoAiFeedButtonBindFingerprint.method.addInstructions(
+            2,
+            "invoke-static {p1}, $TAKO_AI_FILTER_CLASS_DESCRIPTOR->hideBoundFeedButtonView(Landroid/view/View;)V",
+        )
     }
 }
-

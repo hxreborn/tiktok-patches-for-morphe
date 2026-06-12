@@ -7,13 +7,8 @@ package app.morphe.extension.tiktok.settings.preference.categories;
 
 import android.content.Context;
 import android.preference.PreferenceScreen;
-import android.view.View;
 
 import app.morphe.extension.shared.settings.BaseSettings;
-import app.morphe.extension.shared.settings.preference.ClearLogBufferPreference;
-import app.morphe.extension.shared.settings.preference.ExportLogToClipboardPreference;
-import app.morphe.extension.tiktok.Utils;
-import app.morphe.extension.tiktok.settings.Settings;
 import app.morphe.extension.tiktok.settings.preference.MorpheTikTokAboutPreference;
 import app.morphe.extension.tiktok.settings.preference.TogglePreference;
 
@@ -40,53 +35,6 @@ public class ExtensionPreferenceCategory extends ConditionalPreferenceCategory {
                 BaseSettings.SANITIZE_SHARING_LINKS
         ));
 
-        addPreference(new TogglePreference(
-                context,
-                "Copy comments without username",
-                "Copy only the comment text when using TikTok's copy comment action.",
-                Settings.COPY_COMMENTS_WITHOUT_USERNAME
-        ));
-
-        addPreference(new TogglePreference(
-                context,
-                "Enable debug log",
-                "Only enable when recording logs to report an issue. Leaving it on for too long can make TikTok feel laggy and may lead to crashes.",
-                BaseSettings.DEBUG
-        ));
-
-        var exportLogs = new TintedExportLogToClipboardPreference(context);
-        exportLogs.setTitle("Export debug logs");
-        exportLogs.setSummary("Copy Morphe debug logs to clipboard.");
-        addPreference(exportLogs);
-
-        var clearLogs = new TintedClearLogBufferPreference(context);
-        clearLogs.setTitle("Clear debug logs");
-        clearLogs.setSummary("Clear stored Morphe debug logs.");
-        addPreference(clearLogs);
-    }
-
-    private static class TintedExportLogToClipboardPreference extends ExportLogToClipboardPreference {
-        TintedExportLogToClipboardPreference(Context context) {
-            super(context);
-        }
-
-        @Override
-        protected void onBindView(View view) {
-            super.onBindView(view);
-            Utils.setTitleAndSummaryColor(view);
-        }
-    }
-
-    private static class TintedClearLogBufferPreference extends ClearLogBufferPreference {
-        TintedClearLogBufferPreference(Context context) {
-            super(context);
-        }
-
-        @Override
-        protected void onBindView(View view) {
-            super.onBindView(view);
-            Utils.setTitleAndSummaryColor(view);
-        }
     }
 }
 

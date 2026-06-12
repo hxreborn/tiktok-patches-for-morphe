@@ -19,6 +19,7 @@ import java.util.List;
 public class DownloadsPatch {
     private static volatile String lastLoggedPath;
     private static volatile Boolean lastLoggedRemoveWatermark;
+    private static volatile String lastLoggedCleanSourceSignature;
 
     public static String getDownloadPath() {
         String path = Settings.DOWNLOAD_PATH.get();
@@ -54,10 +55,14 @@ public class DownloadsPatch {
                 String originalSummary = describeUrlModel(original);
                 String selectedSummary = describeUrlModel(selected.model);
                 String source = selected.name;
-                Logger.printInfo(() -> "[Morphe Downloads] selected clean download source"
-                        + " original=" + originalSummary
-                        + " source=" + source
-                        + " replacement=" + selectedSummary);
+                String signature = source + '|' + originalSummary + '|' + selectedSummary;
+                if (!signature.equals(lastLoggedCleanSourceSignature)) {
+                    lastLoggedCleanSourceSignature = signature;
+                    Logger.printInfo(() -> "[Morphe Downloads] selected clean download source"
+                            + " original=" + originalSummary
+                            + " source=" + source
+                            + " replacement=" + selectedSummary);
+                }
             }
         } catch (Throwable ex) {
             if (BaseSettings.DEBUG.get()) {
