@@ -1,9 +1,37 @@
 {
-  "version": "0.2.0-dev.2",
+  "version": "0.3.1",
   "appNames": {
     "com.zhiliaoapp.musically": "TikTok"
   },
   "patches": [
+    {
+      "name": "Auto Translate comments",
+      "description": "Adds Auto comment translation controls that translates all non default langauge comments that are loaded. Supports TikTok 43.8.3.",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch"
+      ],
+      "compatiblePackages": {
+        "com.zhiliaoapp.musically": [
+          "43.8.3"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "TikTok",
+          "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
     {
       "name": "Copy comments without username",
       "description": "Copies only the comment text when copying TikTok comments. (Supports TikTok 43.8.3.)",
@@ -223,34 +251,6 @@
       "options": []
     },
     {
-      "name": "Follow diagnostics",
-      "description": "Adds debug-only logs around TikTok follow requests to help diagnose follow actions that do not persist. (Supports TikTok 43.8.3.)",
-      "use": true,
-      "dependencies": [
-        "BytecodePatch"
-      ],
-      "compatiblePackages": {
-        "com.zhiliaoapp.musically": [
-          "43.8.3"
-        ]
-      },
-      "compatibility": [
-        {
-          "name": "TikTok",
-          "packageName": "com.zhiliaoapp.musically",
-          "description": null,
-          "appIconColor": 16657493,
-          "targets": [
-            {
-              "version": "43.8.3",
-              "experimental": false
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
       "name": "Playback speed",
       "description": "Enables the playback speed option for all videos and retains the speed configurations in between videos. (Supports TikTok 43.8.3.)",
       "use": true,
@@ -394,34 +394,6 @@
       "description": "Shows a progress bar for all videos. (Supports TikTok 43.8.3.)",
       "use": true,
       "dependencies": [],
-      "compatiblePackages": {
-        "com.zhiliaoapp.musically": [
-          "43.8.3"
-        ]
-      },
-      "compatibility": [
-        {
-          "name": "TikTok",
-          "packageName": "com.zhiliaoapp.musically",
-          "description": null,
-          "appIconColor": 16657493,
-          "targets": [
-            {
-              "version": "43.8.3",
-              "experimental": false
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Translate comments",
-      "description": "Adds comment translation controls that use TikTok's loaded comment batch. Supports TikTok 43.8.3.",
-      "use": true,
-      "dependencies": [
-        "BytecodePatch"
-      ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"

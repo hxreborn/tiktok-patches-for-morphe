@@ -12,7 +12,6 @@ import com.ss.android.ugc.aweme.follow.presenter.FollowFeedList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -131,12 +130,12 @@ public final class FeedItemsFilter {
         int removed = 0;
         Map<String, Integer> reasonCounts = probeEnabled ? new HashMap<>() : null;
 
-        // Could be simplified with removeIf() but requires Android 7.0+ while TikTok supports 4.0+.
-        Iterator iterator = list.iterator();
-        while (iterator.hasNext()) {
-            Object container = iterator.next();
+        List snapshot = new ArrayList(list);
+        List kept = new ArrayList(snapshot.size());
+        for (Object container : snapshot) {
             Aweme item = extractor.extract(container);
             if (item == null) {
+                kept.add(container);
                 continue;
             }
 
@@ -149,8 +148,14 @@ public final class FeedItemsFilter {
                     Integer count = reasonCounts.get(reason);
                     reasonCounts.put(reason, count == null ? 1 : count + 1);
                 }
-                iterator.remove();
+            } else {
+                kept.add(container);
             }
+        }
+
+        if (removed > 0) {
+            list.clear();
+            list.addAll(kept);
         }
 
         if (probeEnabled) {
@@ -434,11 +439,15 @@ public final class FeedItemsFilter {
     }
 
     private static String sampleAids(List list, AwemeExtractor extractor) {
+        List snapshot = new ArrayList(list);
         StringBuilder builder = new StringBuilder();
         int sampled = 0;
-        Iterator iterator = list.iterator();
-        while (iterator.hasNext() && sampled < FILTER_CALL_PROBE_AID_SAMPLE_SIZE) {
-            Aweme item = extractor.extract(iterator.next());
+        for (Object container : snapshot) {
+            if (sampled >= FILTER_CALL_PROBE_AID_SAMPLE_SIZE) {
+                break;
+            }
+
+            Aweme item = extractor.extract(container);
             if (item == null) {
                 continue;
             }
