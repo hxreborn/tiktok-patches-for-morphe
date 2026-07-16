@@ -21,7 +21,7 @@ private const val PLAYLIST_BAR_FILTER_CLASS_DESCRIPTOR = "Lapp/morphe/extension/
 @Suppress("unused")
 val feedFilterPatch = bytecodePatch(
     name = "Feed filter",
-    description = "Removes ads, livestreams, stories, image videos, the playlist bar below videos and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
+    description = "Removes ads, livestreams, stories, image videos, the playlist bar below videos, AI-generated posts and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
     dependsOn(

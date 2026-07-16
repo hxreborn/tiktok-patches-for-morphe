@@ -57,6 +57,11 @@ public class FeedFilterPreferenceCategory extends ConditionalPreferenceCategory 
                 "Hide playlist bar", "Hide the playlist bar shown below videos in the feed.",
                 Settings.HIDE_PLAYLIST_BAR
         ));
+        addPreference(new TogglePreference(
+                context,
+                "Hide AI-generated content", "Hide posts labeled as AI-generated from feed.",
+                Settings.HIDE_AI_GENERATED
+        ));
         addPreference(new RangeValuePreference(
                 context,
                 "Min/Max views", "The minimum or maximum views of a video to show.",

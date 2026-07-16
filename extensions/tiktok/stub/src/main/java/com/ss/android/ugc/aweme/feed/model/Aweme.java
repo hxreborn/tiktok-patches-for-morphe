@@ -5,6 +5,8 @@
 
 package com.ss.android.ugc.aweme.feed.model;
 
+import com.ss.android.ugc.aweme.feed.AIGCInfo;
+
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -54,6 +56,10 @@ public class Aweme {
     }
 
     public String getShareUrl() {
+        throw new UnsupportedOperationException("Stub");
+    }
+
+    public AIGCInfo getAigcInfo() {
         throw new UnsupportedOperationException("Stub");
     }
 }
