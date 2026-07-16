@@ -9,16 +9,6 @@
   <a href="https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly/tiktok-43-8-3-release/tiktok-43-8-3-2-android-apk-download/"><img alt="TikTok 43.8.3" src="https://img.shields.io/badge/TikTok-43.8.3-ff0050.svg" /></a>
 </p>
 
-<p align="center">
-  <a href="https://ko-fi.com/P5P5YOUU7">
-    <img height="42" src="https://storage.ko-fi.com/cdn/kofi2.png?v=3" alt="Support my work on Ko-fi" />
-  </a>
-</p>
-
-<p align="center">
-  <sub><em>If you are using these patches and want to support the work, it helps me keep testing, improving, and keeping the patches maintained.</em></sub>
-</p>
-
 # TikTok Patches for Morphe
 
 <br>
