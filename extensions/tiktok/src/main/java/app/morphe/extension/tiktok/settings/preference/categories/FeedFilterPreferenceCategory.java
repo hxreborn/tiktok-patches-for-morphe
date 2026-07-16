@@ -52,6 +52,11 @@ public class FeedFilterPreferenceCategory extends ConditionalPreferenceCategory 
                 "Hide image video", "Hide image video from feed.",
                 Settings.HIDE_IMAGE
         ));
+        addPreference(new TogglePreference(
+                context,
+                "Hide AI-generated content", "Hide posts labeled as AI-generated from feed.",
+                Settings.HIDE_AI_GENERATED
+        ));
         addPreference(new RangeValuePreference(
                 context,
                 "Min/Max views", "The minimum or maximum views of a video to show.",

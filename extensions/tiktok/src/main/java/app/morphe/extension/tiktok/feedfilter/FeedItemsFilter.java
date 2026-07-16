@@ -25,7 +25,8 @@ public final class FeedItemsFilter {
         new ImageVideoFilter(),
         new ViewCountFilter(),
         new LikeCountFilter(),
-        new ShopFilter()
+        new ShopFilter(),
+        new AigcFilter()
     );
 
     private static final int MAX_NULL_ITEMS_LOGS = 3;
@@ -229,6 +230,7 @@ public final class FeedItemsFilter {
                 + " hide_live=" + Settings.HIDE_LIVE.get()
                 + " hide_story=" + Settings.HIDE_STORY.get()
                 + " hide_image=" + Settings.HIDE_IMAGE.get()
+                + " hide_ai_generated=" + Settings.HIDE_AI_GENERATED.get()
                 + " min_max_views=\"" + Settings.MIN_MAX_VIEWS.get() + "\""
                 + " min_max_likes=\"" + Settings.MIN_MAX_LIKES.get() + "\""
         );

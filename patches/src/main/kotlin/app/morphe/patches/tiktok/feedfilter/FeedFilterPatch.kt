@@ -20,7 +20,7 @@ private const val TAKO_AI_FILTER_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tikto
 @Suppress("unused")
 val feedFilterPatch = bytecodePatch(
     name = "Feed filter",
-    description = "Removes ads, livestreams, stories, image videos and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
+    description = "Removes ads, livestreams, stories, image videos, AI-generated posts and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
     dependsOn(

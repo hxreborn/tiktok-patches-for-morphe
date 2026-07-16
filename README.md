@@ -37,7 +37,7 @@ The goal is to keep the existing patch set usable while adding more TikTok-focus
 - `Enable Open Debug`: Uses TikTok's hidden Open Debug settings cell as the entry point for Morphe settings.
 - `Disable login requirement`: Lets supported TikTok flows load without the normal login wall first.
 - `Fix Google login`: Restores Google sign-in behavior after patching.
-- `Feed filter`: Filters feed items such as ads, livestreams, stories, shop content, image videos, and videos outside configured view or like ranges.
+- `Feed filter`: Filters feed items such as ads, livestreams, stories, shop content, image videos, AI-generated posts, and videos outside configured view or like ranges.
 - `Feed tab navigation`: Adds controls for choosing which loaded top and bottom feed tabs stay visible, with an option to block tabs TikTok adds later.
 - `Downloads`: Adds download-related controls.
   - Downloads videos without watermark.
