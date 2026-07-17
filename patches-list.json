@@ -1,5 +1,5 @@
 {
-  "version": "0.3.1",
+  "version": "0.4.0",
   "appNames": {
     "com.zhiliaoapp.musically": "TikTok"
   },
@@ -91,6 +91,34 @@
       "description": "Disables mandatory login for TikTok. (Supports TikTok 43.8.3.)",
       "use": true,
       "dependencies": [],
+      "compatiblePackages": {
+        "com.zhiliaoapp.musically": [
+          "43.8.3"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "TikTok",
+          "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Disable screen capture detection",
+      "description": "Disables screen recording and screenshot detection. (Supports TikTok 43.8.3.)",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch"
+      ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
@@ -393,7 +421,9 @@
       "name": "Show seekbar",
       "description": "Shows a progress bar for all videos. (Supports TikTok 43.8.3.)",
       "use": true,
-      "dependencies": [],
+      "dependencies": [
+        "BytecodePatch"
+      ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"

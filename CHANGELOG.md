@@ -1,3 +1,16 @@
+# [0.4.0](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.3.1...v0.4.0) (2026-07-17)
+
+
+### Features
+
+* **tiktok:** filter ai generated posts from feed ([1143f77](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/1143f7773e747d6ab66a986534a88035a20447ae))
+
+
+
+
+
+## 0.4.0
+
 ## [0.3.1](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.3.0...v0.3.1) (2026-06-17)
 
 
