@@ -1,5 +1,5 @@
 {
-  "version": "0.3.1",
+  "version": "v0.3.1",
   "appNames": {
     "com.zhiliaoapp.musically": "TikTok"
   },
@@ -89,6 +89,60 @@
     {
       "name": "Disable login requirement",
       "description": "Disables mandatory login for TikTok. (Supports TikTok 43.8.3.)",
+      "use": true,
+      "dependencies": [],
+      "compatiblePackages": {
+        "com.zhiliaoapp.musically": [
+          "43.8.3"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "TikTok",
+          "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Disable screen capture detection",
+      "description": "Disables screen recording and screenshot detection. (Supports TikTok 43.8.3.)",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch"
+      ],
+      "compatiblePackages": {
+        "com.zhiliaoapp.musically": [
+          "43.8.3"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "TikTok",
+          "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Disable telemetry",
+      "description": "Disables ByteDance AppLog analytics, AppsFlyer attribution tracking, BDLocation background uploads, Firebase Analytics, and crash reporting. (Supports TikTok 43.8.3.)",
       "use": true,
       "dependencies": [],
       "compatiblePackages": {
@@ -393,7 +447,9 @@
       "name": "Show seekbar",
       "description": "Shows a progress bar for all videos. (Supports TikTok 43.8.3.)",
       "use": true,
-      "dependencies": [],
+      "dependencies": [
+        "BytecodePatch"
+      ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
