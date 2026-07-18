@@ -25,6 +25,12 @@ internal object FollowFeedFingerprint : Fingerprint(
     },
 )
 
+internal object PlaylistBottomBarAvailableFingerprint : Fingerprint(
+    definingClass = "/InteractPlayListBottomBarAssem;",
+    returnType = "Z",
+    parameters = listOf("Lcom/ss/android/ugc/aweme/feed/model/VideoItemParams;"),
+)
+
 internal object TakoAiFeedButtonSetVisibleFingerprint : Fingerprint(
     definingClass = "/feed/assem/tikbot/TakoAssem;",
     name = "rn",

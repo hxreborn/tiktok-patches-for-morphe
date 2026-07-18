@@ -141,32 +141,6 @@
       "options": []
     },
     {
-      "name": "Disable telemetry",
-      "description": "Disables ByteDance AppLog analytics, AppsFlyer attribution tracking, BDLocation background uploads, Firebase Analytics, and crash reporting. (Supports TikTok 43.8.3.)",
-      "use": true,
-      "dependencies": [],
-      "compatiblePackages": {
-        "com.zhiliaoapp.musically": [
-          "43.8.3"
-        ]
-      },
-      "compatibility": [
-        {
-          "name": "TikTok",
-          "packageName": "com.zhiliaoapp.musically",
-          "description": null,
-          "appIconColor": 16657493,
-          "targets": [
-            {
-              "version": "43.8.3",
-              "experimental": false
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
       "name": "Downloads",
       "description": "Downloads videos and images without watermark, saves comment stickers/images, and adds download-related controls. (Supports TikTok 43.8.3.)",
       "use": true,
@@ -224,7 +198,7 @@
     },
     {
       "name": "Feed filter",
-      "description": "Removes ads, livestreams, stories, image videos and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
+      "description": "Removes ads, livestreams, stories, image videos, the playlist bar below videos and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
       "use": true,
       "dependencies": [
         "BytecodePatch"

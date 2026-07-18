@@ -16,11 +16,12 @@ import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/feedfilter/FeedItemsFilter;"
 private const val TAKO_AI_FILTER_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/feedfilter/TakoAiFilter;"
+private const val PLAYLIST_BAR_FILTER_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/feedfilter/PlaylistBarFilter;"
 
 @Suppress("unused")
 val feedFilterPatch = bytecodePatch(
     name = "Feed filter",
-    description = "Removes ads, livestreams, stories, image videos and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
+    description = "Removes ads, livestreams, stories, image videos, the playlist bar below videos and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
     dependsOn(
@@ -92,6 +93,19 @@ val feedFilterPatch = bytecodePatch(
         TakoAiFeedButtonBindFingerprint.method.addInstructions(
             2,
             "invoke-static {p1}, $TAKO_AI_FILTER_CLASS_DESCRIPTOR->hideBoundFeedButtonView(Landroid/view/View;)V",
+        )
+
+        PlaylistBottomBarAvailableFingerprint.methodOrNull?.addInstructions(
+            0,
+            """
+                invoke-static {}, $PLAYLIST_BAR_FILTER_CLASS_DESCRIPTOR->shouldHide()Z
+                move-result v0
+                if-eqz v0, :morphe_show_playlist_bar
+                const/4 v0, 0x0
+                return v0
+                :morphe_show_playlist_bar
+                nop
+            """,
         )
     }
 }

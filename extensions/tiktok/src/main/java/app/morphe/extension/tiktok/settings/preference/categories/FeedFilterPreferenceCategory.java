@@ -52,6 +52,11 @@ public class FeedFilterPreferenceCategory extends ConditionalPreferenceCategory 
                 "Hide image video", "Hide image video from feed.",
                 Settings.HIDE_IMAGE
         ));
+        addPreference(new TogglePreference(
+                context,
+                "Hide playlist bar", "Hide the playlist bar shown below videos in the feed.",
+                Settings.HIDE_PLAYLIST_BAR
+        ));
         addPreference(new RangeValuePreference(
                 context,
                 "Min/Max views", "The minimum or maximum views of a video to show.",
