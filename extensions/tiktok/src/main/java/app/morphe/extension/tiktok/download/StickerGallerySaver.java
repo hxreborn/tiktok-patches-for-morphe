@@ -260,9 +260,9 @@ public final class StickerGallerySaver {
     }
 
     private static String stickerRelativePath() {
-        String path = Settings.DOWNLOAD_PATH.get();
+        String path = Settings.IMAGE_DOWNLOAD_PATH.get();
         if (path == null || path.trim().isEmpty()) {
-            path = "DCIM/TikTok";
+            path = Settings.IMAGE_DOWNLOAD_PATH.defaultValue;
         }
 
         path = path.replace('\\', '/');
@@ -271,10 +271,6 @@ public final class StickerGallerySaver {
         }
         while (path.endsWith("/")) {
             path = path.substring(0, path.length() - 1);
-        }
-
-        if (path.startsWith("Movies/") || "Movies".equals(path)) {
-            path = "Pictures" + path.substring("Movies".length());
         }
 
         return path + "/" + STICKER_DIRECTORY;

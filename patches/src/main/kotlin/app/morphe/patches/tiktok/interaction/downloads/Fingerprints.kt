@@ -38,6 +38,16 @@ internal object DownloadUriFingerprint : Fingerprint(
     strings = listOf("/", "/Camera", "/Camera/", "video/mp4"),
 )
 
+// Sibling of DownloadUriFingerprint that builds the MediaStore.Images URI for photo/image posts.
+// The extra String parameter (the MIME type) and the absence of "video/mp4" set it apart from the
+// video builder; the bare "/Camera" literal excludes the image-lookup helper that only holds "/Camera/".
+internal object ImageDownloadUriFingerprint : Fingerprint(
+    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
+    returnType = "Landroid/net/Uri;",
+    parameters = listOf("Landroid/content/Context;", "Ljava/lang/String;", "Ljava/lang/String;"),
+    strings = listOf("/", "/Camera", "/Camera/"),
+)
+
 internal object AwemeGetVideoFingerprint : Fingerprint(
     accessFlags = listOf(AccessFlags.PUBLIC),
     returnType = "Lcom/ss/android/ugc/aweme/feed/model/Video;",

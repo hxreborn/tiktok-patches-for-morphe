@@ -66,6 +66,7 @@ public class Settings extends BaseSettings {
     public static final BooleanSetting HIDE_TAKO_AI = new BooleanSetting("hide_tako_ai", FALSE, true);
     public static final BooleanSetting COMMENT_BATCH_TRANSLATION = new BooleanSetting("comment_batch_translation", FALSE);
     public static final StringSetting DOWNLOAD_PATH = new StringSetting("down_path", "DCIM/TikTok");
+    public static final StringSetting IMAGE_DOWNLOAD_PATH = new StringSetting("image_down_path", "Pictures/TikTok");
     public static final BooleanSetting DOWNLOAD_WATERMARK = new BooleanSetting("down_watermark", TRUE);
     public static final BooleanSetting CUSTOM_OFFLINE_VIDEOS = new BooleanSetting("custom_offline_videos", FALSE, true);
     public static final IntegerSetting CUSTOM_OFFLINE_VIDEO_LIMIT = new IntegerSetting(

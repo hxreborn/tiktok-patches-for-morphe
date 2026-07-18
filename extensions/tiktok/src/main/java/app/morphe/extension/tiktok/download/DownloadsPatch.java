@@ -18,6 +18,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class DownloadsPatch {
     private static volatile String lastLoggedPath;
+    private static volatile String lastLoggedImagePath;
     private static volatile Boolean lastLoggedRemoveWatermark;
     private static volatile String lastLoggedCleanSourceSignature;
 
@@ -26,6 +27,15 @@ public class DownloadsPatch {
         if (BaseSettings.DEBUG.get() && (lastLoggedPath == null || !lastLoggedPath.equals(path))) {
             lastLoggedPath = path;
             Logger.printInfo(() -> "[Morphe Downloads] download_path=\"" + path + "\"");
+        }
+        return path;
+    }
+
+    public static String getImageDownloadPath() {
+        String path = Settings.IMAGE_DOWNLOAD_PATH.get();
+        if (BaseSettings.DEBUG.get() && (lastLoggedImagePath == null || !lastLoggedImagePath.equals(path))) {
+            lastLoggedImagePath = path;
+            Logger.printInfo(() -> "[Morphe Downloads] image_download_path=\"" + path + "\"");
         }
         return path;
     }
