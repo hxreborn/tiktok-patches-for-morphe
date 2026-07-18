@@ -11,16 +11,21 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLa
 import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
 import app.morphe.patcher.extensions.InstructionExtensions.removeInstructions
 import app.morphe.patcher.patch.bytecodePatch
+import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod
 import app.morphe.patches.tiktok.misc.extension.sharedExtensionPatch
 import app.morphe.patches.tiktok.misc.settings.SettingsStatusLoadFingerprint
+import app.morphe.util.addInstructionsAtControlFlowLabel
 import app.morphe.util.findInstructionIndicesReversedOrThrow
 import app.morphe.util.getReference
+import app.morphe.util.indexOfFirstInstructionOrThrow
+import app.morphe.util.indexOfFirstStringInstructionOrThrow
 import app.morphe.util.returnEarly
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
+import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/download/DownloadsPatch;"
 private const val STICKER_EXTENSION_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/download/StickerGallerySaver;"
@@ -115,29 +120,60 @@ val downloadsPatch = bytecodePatch(
             )
         }
 
-        // Change the download path.
-        DownloadUriFingerprint.method.apply {
-            findInstructionIndicesReversedOrThrow {
-                getReference<FieldReference>().let { ref ->
-                    ref?.definingClass == "Landroid/os/Environment;" && ref.name.startsWith("DIRECTORY_")
-                }
-            }.forEach { fieldIndex ->
-                val pathRegister = getInstruction<OneRegisterInstruction>(fieldIndex).registerA
-                val builderRegister = getInstruction<FiveRegisterInstruction>(fieldIndex + 1).registerC
+        // Change the download path: video and image posts build their save URI in separate methods,
+        // so rewrite each to read its own setting
+        DownloadUriFingerprint.method.redirectDownloadPath("getDownloadPath")
+        ImageDownloadUriFingerprint.method.redirectDownloadPath("getImageDownloadPath")
 
-                // Remove 'field load â†’ append â†’ "/Camera/" â†’ append' block.
-                removeInstructions(fieldIndex, 4)
-
-                addInstructions(
-                    fieldIndex,
-                    """
-                        invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->getDownloadPath()Ljava/lang/String;
-                        move-result-object v$pathRegister
-                        invoke-virtual { v$builderRegister, v$pathRegister }, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-                    """,
-                )
+        PhotoModeDownloadUriFingerprint.method.apply {
+            val imageMimeIndex = indexOfFirstStringInstructionOrThrow("image/jpeg")
+            val insertIndex = indexOfFirstInstructionOrThrow(imageMimeIndex) {
+                opcode == Opcode.INVOKE_STATIC &&
+                    getReference<MethodReference>()?.let { ref ->
+                        ref.returnType == "Landroid/net/Uri;" &&
+                            ref.parameterTypes == listOf(
+                                "Landroid/content/Context;",
+                                "Ljava/lang/String;",
+                                "Ljava/lang/String;",
+                                "Ljava/lang/String;",
+                            )
+                    } == true
             }
+            val pathRegister = getInstruction<FiveRegisterInstruction>(insertIndex).registerF
+
+            addInstructionsAtControlFlowLabel(
+                insertIndex,
+                """
+                    invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->getImageDownloadPath()Ljava/lang/String;
+                    move-result-object v$pathRegister
+                """,
+            )
         }
+    }
+}
+
+// Replace every 'Environment.DIRECTORY_* + "/Camera/"' concatenation in a URI builder with a call to
+// the given extension method, reusing whichever registers the original append already used
+private fun MutableMethod.redirectDownloadPath(extensionMethodName: String) {
+    findInstructionIndicesReversedOrThrow {
+        getReference<FieldReference>().let { ref ->
+            ref?.definingClass == "Landroid/os/Environment;" && ref.name.startsWith("DIRECTORY_")
+        }
+    }.forEach { fieldIndex ->
+        val pathRegister = getInstruction<OneRegisterInstruction>(fieldIndex).registerA
+        val builderRegister = getInstruction<FiveRegisterInstruction>(fieldIndex + 1).registerC
+
+        // Remove 'field load → append → "/Camera/" → append' block
+        removeInstructions(fieldIndex, 4)
+
+        addInstructions(
+            fieldIndex,
+            """
+                invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->$extensionMethodName()Ljava/lang/String;
+                move-result-object v$pathRegister
+                invoke-virtual { v$builderRegister, v$pathRegister }, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+            """,
+        )
     }
 }
 

@@ -30,8 +30,13 @@ public class DownloadsPreferenceCategory extends ConditionalPreferenceCategory {
     public void addPreferences(Context context) {
         addPreference(new DownloadPathPreference(
                 context,
-                "Download path",
+                "Video download path",
                 Settings.DOWNLOAD_PATH
+        ));
+        addPreference(new DownloadPathPreference(
+                context,
+                "Image download path",
+                Settings.IMAGE_DOWNLOAD_PATH
         ));
         addPreference(new TogglePreference(
                 context,

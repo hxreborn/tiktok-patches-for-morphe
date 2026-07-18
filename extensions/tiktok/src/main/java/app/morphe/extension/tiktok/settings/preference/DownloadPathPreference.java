@@ -31,9 +31,11 @@ public class DownloadPathPreference extends DialogPreference {
 
     private boolean mValueSet;
     private String downloadPathValue;
+    private final String mDefaultPath;
 
     public DownloadPathPreference(Context context, String title, StringSetting setting) {
         super(context);
+        mDefaultPath = setting.defaultValue;
         setTitle(title);
         setSummary(Environment.getExternalStorageDirectory().getPath() + "/" + setting.get());
         setKey(setting.key);
@@ -99,7 +101,7 @@ public class DownloadPathPreference extends DialogPreference {
         EditText downloadPath = new EditText(context);
         downloadPath.setInputType(InputType.TYPE_CLASS_TEXT);
         downloadPath.setSingleLine(true);
-        downloadPath.setHint("DCIM/TikTok");
+        downloadPath.setHint(mDefaultPath);
         downloadPath.setText(downloadPathValue);
         SettingsUi.styleEditText(downloadPath);
         downloadPath.addTextChangedListener(new TextWatcher() {
@@ -161,9 +163,9 @@ public class DownloadPathPreference extends DialogPreference {
         }
     }
 
-    private static String normalizePath(String path) {
+    private String normalizePath(String path) {
         if (path == null) {
-            return "DCIM/TikTok";
+            return mDefaultPath;
         }
 
         String normalized = path.trim().replace('\\', '/');
@@ -174,7 +176,7 @@ public class DownloadPathPreference extends DialogPreference {
             normalized = normalized.replace("//", "/");
         }
         if (normalized.length() == 0) {
-            return "DCIM/TikTok";
+            return mDefaultPath;
         }
         return normalized;
     }
