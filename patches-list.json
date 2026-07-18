@@ -1,5 +1,5 @@
 {
-  "version": "0.3.1",
+  "version": "v0.3.1",
   "appNames": {
     "com.zhiliaoapp.musically": "TikTok"
   },
@@ -113,6 +113,60 @@
       "options": []
     },
     {
+      "name": "Disable screen capture detection",
+      "description": "Disables screen recording and screenshot detection. (Supports TikTok 43.8.3.)",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch"
+      ],
+      "compatiblePackages": {
+        "com.zhiliaoapp.musically": [
+          "43.8.3"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "TikTok",
+          "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Disable telemetry",
+      "description": "Disables ByteDance AppLog analytics, AppsFlyer attribution tracking, BDLocation background uploads, Firebase Analytics, and crash reporting. (Supports TikTok 43.8.3.)",
+      "use": true,
+      "dependencies": [],
+      "compatiblePackages": {
+        "com.zhiliaoapp.musically": [
+          "43.8.3"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "TikTok",
+          "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Downloads",
       "description": "Downloads videos and images without watermark, saves comment stickers/images, and adds download-related controls. (Supports TikTok 43.8.3.)",
       "use": true,
@@ -170,7 +224,7 @@
     },
     {
       "name": "Feed filter",
-      "description": "Removes ads, livestreams, stories, image videos, AI-generated posts and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
+      "description": "Removes ads, livestreams, stories, image videos, the playlist bar below videos, AI-generated posts and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
       "use": true,
       "dependencies": [
         "BytecodePatch"
@@ -393,7 +447,9 @@
       "name": "Show seekbar",
       "description": "Shows a progress bar for all videos. (Supports TikTok 43.8.3.)",
       "use": true,
-      "dependencies": [],
+      "dependencies": [
+        "BytecodePatch"
+      ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
