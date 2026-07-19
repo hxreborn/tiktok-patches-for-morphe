@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0",
+  "version": "0.6.0-dev.1",
   "appNames": {
     "com.zhiliaoapp.musically": "TikTok"
   },
@@ -224,7 +224,7 @@
     },
     {
       "name": "Feed filter",
-      "description": "Removes ads, livestreams, stories, image videos, the playlist bar below videos, AI-generated posts and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
+      "description": "Removes ads, livestreams, stories, image videos, the playlist bar below videos, the floating promotional event badge, AI-generated posts and videos with a specific amount of views or likes from the feed. (Supports TikTok 43.8.3.)",
       "use": true,
       "dependencies": [
         "BytecodePatch"
