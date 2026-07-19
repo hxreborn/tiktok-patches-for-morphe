@@ -18,6 +18,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+@SuppressWarnings("unused")
 public final class CommentBatchTranslator {
     private static final long STALE_ENTRY_MS = 15_000L;
     private static final long LOADED_BATCH_STALE_MS = 60_000L;

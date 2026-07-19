@@ -6,6 +6,7 @@ package app.morphe.extension.tiktok.feedfilter;
 
 import app.morphe.extension.tiktok.settings.Settings;
 
+@SuppressWarnings("unused")
 public final class EventBadgeFilter {
     private EventBadgeFilter() {}
 

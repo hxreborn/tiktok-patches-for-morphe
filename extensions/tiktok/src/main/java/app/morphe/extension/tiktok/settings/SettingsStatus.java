@@ -5,6 +5,7 @@
 
 package app.morphe.extension.tiktok.settings;
 
+@SuppressWarnings("unused")
 public class SettingsStatus {
     public static boolean feedFilterEnabled = false;
     public static boolean feedNavigationEnabled = false;
