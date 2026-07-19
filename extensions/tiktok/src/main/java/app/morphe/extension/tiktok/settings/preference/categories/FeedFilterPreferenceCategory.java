@@ -59,6 +59,11 @@ public class FeedFilterPreferenceCategory extends ConditionalPreferenceCategory 
         ));
         addPreference(new TogglePreference(
                 context,
+                "Hide event badge", "Hide the floating promotional event badge shown over the feed.",
+                Settings.HIDE_EVENT_BADGE
+        ));
+        addPreference(new TogglePreference(
+                context,
                 "Hide AI-generated content", "Hide posts labeled as AI-generated from feed.",
                 Settings.HIDE_AI_GENERATED
         ));
