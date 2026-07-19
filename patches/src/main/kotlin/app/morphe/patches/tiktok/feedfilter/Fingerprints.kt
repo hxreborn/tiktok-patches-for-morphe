@@ -31,6 +31,12 @@ internal object PlaylistBottomBarAvailableFingerprint : Fingerprint(
     parameters = listOf("Lcom/ss/android/ugc/aweme/feed/model/VideoItemParams;"),
 )
 
+internal object SpecActTouchpointAttachFingerprint : Fingerprint(
+    definingClass = "/specact/SpecActServiceImpl;",
+    returnType = "V",
+    parameters = listOf("Landroid/view/ViewGroup;", "Landroidx/fragment/app/Fragment;"),
+)
+
 internal object TakoAiFeedButtonSetVisibleFingerprint : Fingerprint(
     definingClass = "/feed/assem/tikbot/TakoAssem;",
     name = "rn",
