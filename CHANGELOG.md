@@ -8,27 +8,12 @@
 * **tiktok:** add separate image download path ([5215368](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/52153681fca942491ba45e2c8572e46d4385f080))
 * **tiktok:** filter ai generated posts from feed ([58671de](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/58671de5e4c0a2baebb42d643c66d27f9ff273c2))
 
-
-
-
-
-## 0.5.0
-
-# [0.4.0-dev.1](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.3.1...v0.4.0-dev.1) (2026-07-19)
+# [0.4.0](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.3.1...v0.4.0) (2026-07-17)
 
 
 ### Features
 
-* **feedfilter:** hide in-feed playlist bar ([ae2be23](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/ae2be2398359048df76ddad002b143a0c7cba1a1))
-* **telemetry:** disable ByteDance/AppsFlyer/Firebase analytics ([fb2425e](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/fb2425e3d3b8da84c85da2123234704f981f53a4))
-* **tiktok:** add separate image download path ([5215368](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/52153681fca942491ba45e2c8572e46d4385f080))
-* **tiktok:** filter ai generated posts from feed ([58671de](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/58671de5e4c0a2baebb42d643c66d27f9ff273c2))
-
-
-
-
-
-## 0.4.0-dev.1
+* **tiktok:** filter ai generated posts from feed ([1143f77](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/1143f7773e747d6ab66a986534a88035a20447ae))
 
 ## [0.3.1](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.3.0...v0.3.1) (2026-06-17)
 
@@ -36,12 +21,6 @@
 ### Bug Fixes
 
 * avoid concurrent feed list iteration crash ([275e8d5](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/275e8d5f3ad273b24a5bd592b0da86bfe7dc3ee4))
-
-
-
-
-
-## 0.3.1
 
 # [0.3.0](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.2.0...v0.3.0) (2026-06-17)
 
@@ -69,12 +48,6 @@
 
 * reduce feed filter scanning overhead ([ac13277](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/ac13277743e2c5f4022a4e1bafea1caf067520fe))
 
-
-
-
-
-## 0.3.0
-
 # [0.2.0](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.1.5...v0.2.0) (2026-06-06)
 
 
@@ -94,12 +67,6 @@
 
 * reduce feed filter scanning overhead ([007d1be](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/007d1be0a93393a7ca1935cea8740cb167b5e6f9))
 
-
-
-
-
-## 0.2.0
-
 ## [0.1.5](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.1.4...v0.1.5) (2026-06-01)
 
 
@@ -108,12 +75,6 @@
 * limit TikTok compatibility to global package ([49806ad](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/49806ad5a1c75bc2d7f052abf227b7d055879935))
 * sanitize TikTok sharing links before shortening ([53a3558](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/53a3558f7e1921ccd2636fe2d322a4b7c1ca3d04))
 
-
-
-
-
-## 0.1.5
-
 ## [0.1.4](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.1.3...v0.1.4) (2026-05-30)
 
 
@@ -121,37 +82,12 @@
 
 * improve settings readability and debug logging ([f4f4bc4](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/f4f4bc4dc9104182c1a419878ddf837057555340))
 
-
-
-
-
-## 0.1.4
-
 ## [0.1.3](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.1.2...v0.1.3) (2026-05-29)
 
 
 ### Bug Fixes
 
 * support global settings top row insertion ([c38f1b6](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/c38f1b63d32b3d7218de1f5c46243f728c6c5868))
-
-
-
-
-
-## 0.1.3
-
-## [0.1.3](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.1.2...v0.1.3) (2026-05-29)
-
-
-### Bug Fixes
-
-* support global settings top row insertion ([c38f1b6](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/c38f1b63d32b3d7218de1f5c46243f728c6c5868))
-
-
-
-
-
-## 0.1.3
 
 ## [0.1.2](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.1.1...v0.1.2) (2026-05-29)
 
@@ -159,12 +95,6 @@
 ### Bug Fixes
 
 * fallback open debug settings insertion ([e201d53](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/e201d533d19504f4e32001d6985cad7ee9804b15))
-
-
-
-
-
-## 0.1.2
 
 ## [0.1.1](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.1.0...v0.1.1) (2026-05-29)
 
@@ -174,9 +104,3 @@
 * add release changelog script ([74fa14e](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/74fa14ebe975509816a9344031dd176a76595407))
 * distinguish global and jp tiktok packages ([7e1f7df](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/7e1f7dfd23d79346529715854a9b1840af210d47))
 * soften support preference copy ([5cbfd26](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/5cbfd26030b35d5b2996ead5073b2ffd7df166a5))
-
-
-
-
-
-## 0.1.1
