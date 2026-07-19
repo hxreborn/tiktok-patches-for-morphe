@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.5.0...v0.6.0) (2026-07-19)
+
+
+### Features
+
+* **feedfilter:** hide floating event badge ([2141c1d](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/2141c1d99e9b9cccede63e526d82cebe46a79091))
+
 # [0.6.0-dev.1](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.5.0...v0.6.0-dev.1) (2026-07-19)
 
 
