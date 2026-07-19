@@ -1,0 +1,34 @@
+name: Dependabot auto-merge
+
+# Squash-merges a Dependabot PR only after "Build pull request" succeeds for it.
+# Uses workflow_run (not --auto) so no branch protection is needed, which would
+# otherwise block semantic-release's direct [skip ci] commits to dev.
+on:
+  workflow_run:
+    workflows: ["Build pull request"]
+    types:
+      - completed
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.actor.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Squash-merge the green Dependabot PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          pr=$(gh api "repos/$REPO/commits/$HEAD_SHA/pulls" --jq '.[0].number')
+          if [ -z "$pr" ] || [ "$pr" = "null" ]; then
+            echo "No open PR for $HEAD_SHA"; exit 0
+          fi
+          gh pr merge "$pr" -R "$REPO" --squash --delete-branch
