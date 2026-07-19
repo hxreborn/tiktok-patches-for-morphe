@@ -10,6 +10,7 @@ import android.preference.PreferenceScreen;
 
 import app.morphe.extension.shared.settings.BaseSettings;
 import app.morphe.extension.tiktok.settings.Settings;
+import app.morphe.extension.tiktok.settings.SettingsStatus;
 import app.morphe.extension.tiktok.settings.preference.TogglePreference;
 
 @SuppressWarnings("deprecation")
@@ -40,6 +41,14 @@ public class ExtensionPreferenceCategory extends ConditionalPreferenceCategory {
                 Settings.SHOW_SEEKBAR
         ));
 
+        if (SettingsStatus.disableTelemetryEnabled) {
+            addPreference(new TogglePreference(
+                    context,
+                    "Disable analytics",
+                    "Stops ByteDance, AppsFlyer and Firebase analytics, background location uploads and crash reporting.",
+                    Settings.DISABLE_ANALYTICS
+            ));
+        }
     }
 }
 
