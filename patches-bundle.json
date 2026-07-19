@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-06-17T16:13:02",
-  "description": "## [0.3.1](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.3.0...v0.3.1) (2026-06-17)\n\n\n### Bug Fixes\n\n* avoid concurrent feed list iteration crash ([275e8d5](https://github.com/icysymmetra/tiktok-patches-for-morphe/commit/275e8d5f3ad273b24a5bd592b0da86bfe7dc3ee4))\n\n\n\n\n\n## 0.3.1",
-  "download_url": "https://github.com/icysymmetra/tiktok-patches-for-morphe/releases/download/v0.3.1/patches-0.3.1.mpp",
+  "created_at": "2026-07-19T05:07:35",
+  "description": "# [0.4.0-dev.1](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.3.1...v0.4.0-dev.1) (2026-07-19)\n\n\n### Features\n\n* **feedfilter:** hide in-feed playlist bar ([ae2be23](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/ae2be2398359048df76ddad002b143a0c7cba1a1))\n* **telemetry:** disable ByteDance/AppsFlyer/Firebase analytics ([fb2425e](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/fb2425e3d3b8da84c85da2123234704f981f53a4))\n* **tiktok:** add separate image download path ([5215368](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/52153681fca942491ba45e2c8572e46d4385f080))\n* **tiktok:** filter ai generated posts from feed ([58671de](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/58671de5e4c0a2baebb42d643c66d27f9ff273c2))\n\n\n\n\n\n## 0.4.0-dev.1",
+  "download_url": "https://github.com/hxreborn/tiktok-patches-for-morphe/releases/download/v0.4.0-dev.1/patches-0.4.0-dev.1.mpp",
   "signature_download_url": "",
-  "version": "0.3.1"
+  "version": "0.4.0-dev.1"
 }

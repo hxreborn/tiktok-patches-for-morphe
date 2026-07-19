@@ -1,3 +1,19 @@
+# [0.4.0-dev.1](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.3.1...v0.4.0-dev.1) (2026-07-19)
+
+
+### Features
+
+* **feedfilter:** hide in-feed playlist bar ([ae2be23](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/ae2be2398359048df76ddad002b143a0c7cba1a1))
+* **telemetry:** disable ByteDance/AppsFlyer/Firebase analytics ([fb2425e](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/fb2425e3d3b8da84c85da2123234704f981f53a4))
+* **tiktok:** add separate image download path ([5215368](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/52153681fca942491ba45e2c8572e46d4385f080))
+* **tiktok:** filter ai generated posts from feed ([58671de](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/58671de5e4c0a2baebb42d643c66d27f9ff273c2))
+
+
+
+
+
+## 0.4.0-dev.1
+
 ## [0.3.1](https://github.com/icysymmetra/tiktok-patches-for-morphe/compare/v0.3.0...v0.3.1) (2026-06-17)
 
 
