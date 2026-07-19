@@ -1,5 +1,5 @@
 {
-  "version": "0.6.0",
+  "version": "v0.6.0",
   "appNames": {
     "com.zhiliaoapp.musically": "TikTok"
   },
@@ -142,9 +142,12 @@
     },
     {
       "name": "Disable telemetry",
-      "description": "Disables ByteDance AppLog analytics, AppsFlyer attribution tracking, BDLocation background uploads, Firebase Analytics, and crash reporting. (Supports TikTok 43.8.3.)",
+      "description": "Adds a Miscellaneous toggle that disables ByteDance AppLog analytics, AppsFlyer attribution tracking, BDLocation background uploads, Firebase Analytics, and crash reporting. Off by default. (Supports TikTok 43.8.3.)",
       "use": true,
-      "dependencies": [],
+      "dependencies": [
+        "BytecodePatch",
+        "BytecodePatch"
+      ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
