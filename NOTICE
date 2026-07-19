@@ -20,3 +20,12 @@ References to Morphe are permitted solely for descriptive compatibility purposes
 - Are accurate, factual, and non-misleading;
 - Do not suggest authorship by the Morphe project; and
 - Appear only in a secondary or descriptive context, not as part of the product or project name.
+
+hxreborn fork
+-------------
+
+This repository is a fork of icysymmetra/tiktok-patches-for-morphe, maintained
+by hxreborn. Copyright and license notices in individual source files identify
+the authors of each file. As GPLv3 already requires, those notices must be
+preserved in copies and modified versions, and modified versions must carry
+prominent notice that they were changed.
