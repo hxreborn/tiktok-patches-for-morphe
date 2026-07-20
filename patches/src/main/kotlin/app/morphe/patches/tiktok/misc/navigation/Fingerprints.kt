@@ -10,8 +10,7 @@ internal object HomeTabAbilityListFingerprint : Fingerprint(
 )
 
 internal object BottomTabBuildListFingerprint : Fingerprint(
-    definingClass = "/0tBq;",
-    name = "LJJL",
     returnType = "V",
     parameters = listOf("Ljava/util/List;"),
+    strings = listOf("HOME", "PUBLISH", "FRIENDS_TAB", "SHOP_MALL", "NOTIFICATION"),
 )
