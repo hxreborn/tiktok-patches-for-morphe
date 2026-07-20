@@ -1,3 +1,11 @@
+# [0.7.0](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.6.0...v0.7.0) (2026-07-20)
+
+
+### Features
+
+* **downloads:** change default download video path to Videos/TikTok ([bfdbda6](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/bfdbda645c794663c374186a10ef1adc5e766859))
+* **telemetry:** make disabling analytics optional ([2afa561](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/2afa5615c1512e52d9f209f17814e4b2f7ad3bfa))
+
 # [0.7.0-dev.1](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.6.0...v0.7.0-dev.1) (2026-07-19)
 
 
