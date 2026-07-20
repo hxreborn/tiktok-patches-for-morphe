@@ -86,44 +86,33 @@ internal object StickerPreviewBinderFingerprint : Fingerprint(
         "Ljava/lang/String;",
         "Ljava/util/Map;",
     ),
-    custom = { method, classDef ->
-        if (!classDef.endsWith("/05No;") || method.name != "LIZ") {
+    custom = { method, _ ->
+        val instructions = method.implementation?.instructions
+        if (instructions == null) {
             false
         } else {
-            val instructions = method.implementation?.instructions
-            if (instructions == null) {
-                false
-            } else {
-                var readsUrlModel = false
-                var bindsActionButton = false
-                var loadsStickerImage = false
+            var readsUrlModel = false
+            var readsStickerImageView = false
+            var queriesStickerApi = false
 
-                instructions.forEach { instruction ->
-                    instruction.getReference<FieldReference>()?.let { field ->
-                        if (field.type == "Lcom/ss/android/ugc/aweme/base/model/UrlModel;") {
-                            readsUrlModel = true
-                        }
-                    }
-
-                    instruction.getReference<MethodReference>()?.let { methodReference ->
-                        if (methodReference.definingClass == "LX/05No;" &&
-                            methodReference.name == "LIZIZ" &&
-                            methodReference.parameterTypes == listOf("LX/0Daq;", "LX/05Nn;") &&
-                            methodReference.returnType == "V"
-                        ) {
-                            bindsActionButton = true
-                        }
-
-                        if (methodReference.definingClass == "LX/0zaJ;" &&
-                            methodReference.name == "LIZJ"
-                        ) {
-                            loadsStickerImage = true
-                        }
+            instructions.forEach { instruction ->
+                instruction.getReference<FieldReference>()?.let { field ->
+                    when (field.type) {
+                        "Lcom/ss/android/ugc/aweme/base/model/UrlModel;" -> readsUrlModel = true
+                        "Lcom/bytedance/lighten/loader/SmartImageView;" -> readsStickerImageView = true
                     }
                 }
 
-                readsUrlModel && bindsActionButton && loadsStickerImage
+                instruction.getReference<MethodReference>()?.let { methodReference ->
+                    if (methodReference.definingClass ==
+                        "Lcom/ss/android/ugc/aweme/im/sticker/api/IMStickerApi;"
+                    ) {
+                        queriesStickerApi = true
+                    }
+                }
             }
+
+            readsUrlModel && readsStickerImageView && queriesStickerApi
         }
     },
 )
