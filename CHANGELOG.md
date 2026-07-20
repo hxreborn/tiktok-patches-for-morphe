@@ -1,3 +1,10 @@
+## [0.7.1-dev.2](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.7.1-dev.1...v0.7.1-dev.2) (2026-07-20)
+
+
+### Bug Fixes
+
+* **downloads:** default video path to Movies/TikTok ([10227c1](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/10227c1a9793180cf95252efea3991ff4850c62d))
+
 ## [0.7.1-dev.1](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.7.0...v0.7.1-dev.1) (2026-07-20)
 
 
