@@ -7,6 +7,7 @@ import app.morphe.extension.tiktok.settings.Settings;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+@SuppressWarnings("unused")
 public final class TakoAiFilter {
     private static final int MAX_LOGS = 20;
     private static final AtomicInteger floatingButtonRouteLogCount = new AtomicInteger();

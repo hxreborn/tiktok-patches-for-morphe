@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@SuppressWarnings("unused")
 public final class FeedItemsFilter {
     private static final List<IFilter> FILTERS = List.of(
         new AdsFilter(),

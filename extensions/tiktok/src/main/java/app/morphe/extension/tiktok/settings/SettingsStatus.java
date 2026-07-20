@@ -5,12 +5,14 @@
 
 package app.morphe.extension.tiktok.settings;
 
+@SuppressWarnings("unused")
 public class SettingsStatus {
     public static boolean feedFilterEnabled = false;
     public static boolean feedNavigationEnabled = false;
     public static boolean commentTranslationEnabled = false;
     public static boolean downloadEnabled = false;
     public static boolean simSpoofEnabled = false;
+    public static boolean disableTelemetryEnabled = false;
 
     public static void enableFeedFilter() {
         feedFilterEnabled = true;
@@ -30,6 +32,10 @@ public class SettingsStatus {
 
     public static void enableSimSpoof() {
         simSpoofEnabled = true;
+    }
+
+    public static void enableDisableTelemetry() {
+        disableTelemetryEnabled = true;
     }
 
     public static void load() {

@@ -68,7 +68,7 @@ public class Settings extends BaseSettings {
     );
     public static final BooleanSetting HIDE_TAKO_AI = new BooleanSetting("hide_tako_ai", FALSE, true);
     public static final BooleanSetting COMMENT_BATCH_TRANSLATION = new BooleanSetting("comment_batch_translation", FALSE);
-    public static final StringSetting DOWNLOAD_PATH = new StringSetting("down_path", "DCIM/TikTok");
+    public static final StringSetting DOWNLOAD_PATH = new StringSetting("down_path", "Videos/TikTok");
     public static final StringSetting IMAGE_DOWNLOAD_PATH = new StringSetting("image_down_path", "Pictures/TikTok");
     public static final BooleanSetting DOWNLOAD_WATERMARK = new BooleanSetting("down_watermark", TRUE);
     public static final BooleanSetting CUSTOM_OFFLINE_VIDEOS = new BooleanSetting("custom_offline_videos", FALSE, true);
@@ -82,6 +82,7 @@ public class Settings extends BaseSettings {
     public static final BooleanSetting CLEAR_DISPLAY = new BooleanSetting("clear_display", FALSE);
     public static final BooleanSetting COPY_COMMENTS_WITHOUT_USERNAME = new BooleanSetting("copy_comments_without_username", TRUE);
     public static final FloatSetting REMEMBERED_SPEED = new FloatSetting("REMEMBERED_SPEED", 1.0f);
+    public static final BooleanSetting DISABLE_ANALYTICS = new BooleanSetting("disable_analytics", FALSE, true);
     public static final BooleanSetting SIM_SPOOF = new BooleanSetting("simspoof", FALSE, true);
     public static final StringSetting SIM_SPOOF_ISO = new StringSetting("simspoof_iso", "us");
     public static final StringSetting SIMSPOOF_MCCMNC = new StringSetting("simspoof_mccmnc", "310260");

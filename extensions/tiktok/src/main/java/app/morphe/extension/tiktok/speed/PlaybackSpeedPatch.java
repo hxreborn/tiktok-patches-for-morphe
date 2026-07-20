@@ -9,6 +9,7 @@ import app.morphe.extension.tiktok.settings.Settings;
  * - rememberPlaybackSpeed(F)V
  * - getPlaybackSpeed()F
  */
+@SuppressWarnings("unused")
 public final class PlaybackSpeedPatch {
     private static volatile float rememberedSpeed = 1.0f;
 
