@@ -1,3 +1,11 @@
+## [0.7.1-dev.1](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.7.0...v0.7.1-dev.1) (2026-07-20)
+
+
+### Bug Fixes
+
+* **downloads:** keep working across TikTok builds ([b4d5804](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/b4d5804f30faff05c9e02a20ff30bbf65d225011))
+* **navigation:** keep tab controls across TikTok builds ([206912a](https://github.com/hxreborn/tiktok-patches-for-morphe/commit/206912a264e11df9d50c09d01717be423c4af9f4))
+
 # [0.7.0](https://github.com/hxreborn/tiktok-patches-for-morphe/compare/v0.6.0...v0.7.0) (2026-07-20)
 
 
